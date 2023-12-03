@@ -1,3 +1,4 @@
+import os
 import pickle
 from copy import copy
 from io import StringIO
@@ -34,9 +35,10 @@ def train(**kwargs_train):
     )
     kwargs_train["custom_metric"] = ["RMSE", "MAE", "R2"]
 
-    kwargs_train["allow_writing_files"] = False
     regr = CatBoostRegressor(**kwargs_train)
     regr.fit(X=X_train, y=y_train, eval_set=(X_val, y_val))
+    if not os.path.exists("./models/"):
+        os.mkdir("./models/")
     with open("./models/" + model_name + ".pkl", "wb") as f:
         pickle.dump(regr, f)
     with open("model.pkl", "wb") as f:

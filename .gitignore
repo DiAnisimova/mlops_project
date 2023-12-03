@@ -133,3 +133,5 @@ model.pkl
 outputs
 mlruns
 catboost_info
+housing.onnx
+prediction.csv
