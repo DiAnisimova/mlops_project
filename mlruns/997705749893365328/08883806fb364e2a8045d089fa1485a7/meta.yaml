@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/997705749893365328/08883806fb364e2a8045d089fa1485a7/artifacts
+end_time: 1701618419819
+entry_point_name: ""
+experiment_id: "997705749893365328"
+lifecycle_stage: active
+run_id: 08883806fb364e2a8045d089fa1485a7
+run_name: welcoming-mouse-590
+run_uuid: 08883806fb364e2a8045d089fa1485a7
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1701618415396
+status: 3
+tags: []
+user_id: diana

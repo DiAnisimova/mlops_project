@@ -1,0 +1,6 @@
+iterations: 1500
+learning_rate: 0.215
+depth: 3
+loss_function: "RMSE"
+model_name: "model1"
+target: "price"

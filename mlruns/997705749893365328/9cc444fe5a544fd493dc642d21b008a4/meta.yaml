@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/997705749893365328/9cc444fe5a544fd493dc642d21b008a4/artifacts
+end_time: 1701617371876
+entry_point_name: ""
+experiment_id: "997705749893365328"
+lifecycle_stage: active
+run_id: 9cc444fe5a544fd493dc642d21b008a4
+run_name: thoughtful-fox-583
+run_uuid: 9cc444fe5a544fd493dc642d21b008a4
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1701617369930
+status: 3
+tags: []
+user_id: diana

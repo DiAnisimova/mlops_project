@@ -1,0 +1,3 @@
+target: "price"
+column_name: "pred_price"
+prediction_name: "prediction.csv"

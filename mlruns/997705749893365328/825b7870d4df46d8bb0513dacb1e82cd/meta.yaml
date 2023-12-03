@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/997705749893365328/825b7870d4df46d8bb0513dacb1e82cd/artifacts
+end_time: 1701617180266
+entry_point_name: ""
+experiment_id: "997705749893365328"
+lifecycle_stage: active
+run_id: 825b7870d4df46d8bb0513dacb1e82cd
+run_name: indecisive-wren-300
+run_uuid: 825b7870d4df46d8bb0513dacb1e82cd
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1701617180256
+status: 4
+tags: []
+user_id: diana

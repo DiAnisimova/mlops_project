@@ -1,0 +1,3 @@
+iterations: 1000
+model_name: "model0"
+target: "price"

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/997705749893365328/473eb151a04b48c28a529bdddf01e5fa/artifacts
+end_time: 1701614844226
+entry_point_name: ""
+experiment_id: "997705749893365328"
+lifecycle_stage: active
+run_id: 473eb151a04b48c28a529bdddf01e5fa
+run_name: flawless-fly-295
+run_uuid: 473eb151a04b48c28a529bdddf01e5fa
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1701614842389
+status: 3
+tags: []
+user_id: diana
