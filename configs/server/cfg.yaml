@@ -1,0 +1,5 @@
+target: "price"
+column_name: "pred_price"
+prediction_name: "prediction.csv"
+model_uri: "runs:/caca9c35b8cf438783929e2842fbee98/model0"
+uri: "http://127.0.0.1:9000"

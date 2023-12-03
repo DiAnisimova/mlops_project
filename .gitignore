@@ -132,3 +132,4 @@ models
 model.pkl
 outputs
 mlruns
+catboost_info

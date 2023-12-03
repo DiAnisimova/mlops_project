@@ -3,19 +3,26 @@ from copy import copy
 from io import StringIO
 
 import dvc.api
+import git
 import mlflow
+import onnx
 import pandas as pd
 from catboost import CatBoostRegressor
 from mlflow.models import infer_signature
+from mlflow.onnx import log_model
 from sklearn.model_selection import train_test_split
 
 
 def train(**kwargs_train):
+    commit_id = git.Repo("./").head.object.hexsha
     params = copy(kwargs_train)
+    params["commit_id"] = commit_id
     model_name = kwargs_train["model_name"]
     target_name = kwargs_train["target"]
+    uri = kwargs_train["uri"]
     del kwargs_train["model_name"]
     del kwargs_train["target"]
+    del kwargs_train["uri"]
     data = dvc.api.read(path="./data/train.csv", mode="r")
     data = pd.read_csv(StringIO(data))
     y = data[target_name]
@@ -35,12 +42,24 @@ def train(**kwargs_train):
     with open("model.pkl", "wb") as f:
         pickle.dump(regr, f)
 
+    regr.save_model(
+        "housing.onnx",
+        format="onnx",
+        export_parameters={
+            "onnx_domain": "ai.catboost",
+            "onnx_model_version": 1,
+            "onnx_doc_string": "test model for Regression",
+            "onnx_graph_name": "CatBoostModel_for_Regression",
+        },
+    )
+    onnx_model = onnx.load_model("housing.onnx")
+
     train_info = pd.read_csv("./catboost_info/learn_error.tsv", sep="\t")
     val_info = pd.read_csv("./catboost_info/test_error.tsv", sep="\t")
-    mlflow.set_tracking_uri(uri="http://127.0.0.1:9000")
+    mlflow.set_tracking_uri(uri=uri)
 
     # # Create a new MLflow Experiment
-    mlflow.set_experiment("MLflow Quickstart")
+    mlflow.set_experiment(model_name)
 
     # Start an MLflow run
     with mlflow.start_run():
@@ -60,14 +79,23 @@ def train(**kwargs_train):
 
         # Infer the model signature
         signature = infer_signature(X_train, regr.predict(X_train))
+        model_info = log_model(onnx_model, model_name, signature=signature)
+        with open("./configs/server/cfg.yaml", "w") as f:
+            f.write('target: "price"\n')
+            f.write('column_name: "pred_price"\n')
+            f.write('prediction_name: "prediction.csv"\n')
+            f.write("model_uri: " + '"' + model_info.model_uri + '"' + "\n")
+            f.write('uri: "http://127.0.0.1:9000"')
+        # onnx_pyfunc = mlflow.pyfunc.load_model(model_info.model_uri)
+        # print("UUUUUUU", model_info.model_uri)
 
         # Log the model
         mlflow.sklearn.log_model(
             sk_model=regr,
-            artifact_path="some_model",
+            artifact_path=model_name + "_info",
             signature=signature,
             input_example=X_train,
-            registered_model_name="tracking-quickstart",
+            registered_model_name=model_name,
         )
 
 

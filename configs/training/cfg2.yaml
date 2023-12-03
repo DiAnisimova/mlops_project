@@ -4,3 +4,4 @@ depth: 5
 loss_function: "RMSE"
 model_name: "model2"
 target: "price"
+uri: "http://127.0.0.1:9000"
