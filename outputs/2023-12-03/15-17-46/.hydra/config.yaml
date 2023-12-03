@@ -1,5 +1,0 @@
-configs:
-  iterations: 500
-  learning_rate: None
-  depth: None
-  loss_function: RMSE
