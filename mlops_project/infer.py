@@ -28,4 +28,8 @@ def infer(**kwargs):
 
 
 if __name__ == "__main__":
-    infer()
+    param_dict = dict()
+    param_dict["target"] = "price"
+    param_dict["column_name"] = "pred_price"
+    param_dict["prediction_name"] = "prediction.csv"
+    infer(param_dict)

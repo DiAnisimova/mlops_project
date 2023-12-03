@@ -6,7 +6,7 @@ authors = ["Diana Anisimova <diana.anisimova.01@mail.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.13"
+python = ">=3.11,<3.12"
 numpy = "^1.26.0"
 pandas = "^2.1.1"
 sklearn = "^0.0.post9"

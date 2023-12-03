@@ -102,4 +102,11 @@ def train(**kwargs_train):
 
 
 if __name__ == "__main__":
-    train()
+    train(
+        {
+            "iterations": 1000,
+            "model_name": "model0",
+            "target": "price",
+            "uri": "http://127.0.0.1:9000",
+        }
+    )
