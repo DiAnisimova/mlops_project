@@ -1,7 +1,8 @@
 version: "3.8"
 services:
-  triton_hf_transformer_example:
+  triton_catboost:
     command: ["--model-repository=/models", "--log-info=1"]
+    # command: ["--model-repository=/model_repository", "--log-info=1"]
     build: .
     shm_size: "64gb"
     restart: unless-stopped
@@ -12,14 +13,14 @@ services:
     volumes:
       - ./:/workspace
       - ./model_repository:/models
-      - ./assets:/assets
+      # - ./assets:/assets
     environment:
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
     deploy:
       resources:
         limits:
-          cpus: "6"
+          cpus: "4"
         # reservations:
         #   devices:
         #   - driver: nvidia

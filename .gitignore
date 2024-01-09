@@ -136,3 +136,4 @@ catboost_info
 housing.onnx
 prediction.csv
 model.onnx
+server

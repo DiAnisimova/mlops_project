@@ -1,0 +1,30 @@
+name: "catboost_onnx"
+platform: "onnxruntime_onnx"
+max_batch_size: 8
+
+
+input [
+    {
+        name: "features"
+        data_type: TYPE_FP32
+        dims: [ 21 ]
+    }
+]
+
+output [
+    {
+        name: "predictions"
+        data_type: TYPE_FP32
+        dims: [ 1 ]
+        reshape: { shape: [] }
+    }
+]
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_CPU
+    }
+]
+
+dynamic_batching: { max_queue_delay_microseconds: 500 }

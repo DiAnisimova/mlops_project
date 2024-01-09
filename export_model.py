@@ -3,9 +3,8 @@ from io import StringIO
 
 import dvc.api
 import git
-import onnx
 import pandas as pd
-from catboost import CatBoostRegressor
+from catboost import CatBoostRegressor, Pool
 from sklearn.model_selection import train_test_split
 
 
@@ -22,14 +21,17 @@ def train(**kwargs_train):
     y = data[target_name]
     X = data.drop(target_name, axis=1)
     X = X.to_numpy()
-    y = y.to_numpy()
+    y = y.to_numpy()[:, None]
     X_train, X_val, y_train, y_val = train_test_split(
         X, y, test_size=0.8, random_state=42
     )
     kwargs_train["custom_metric"] = ["RMSE", "MAE", "R2"]
 
     regr = CatBoostRegressor(**kwargs_train)
-    regr.fit(X=X_train, y=y_train, eval_set=(X_val, y_val))
+    batch_train = Pool(X_train, label=y_train)
+    batch_val = Pool(X_val, label=y_val)
+    regr.fit(X=batch_train, eval_set=batch_val)
+    # regr.fit(X=X_train, y=y_train, eval_set=(X_val, y_val))
     # if not os.path.exists("./models/"):
     #     os.mkdir("./models/")
     # with open("./models/" + model_name + ".pkl", "wb") as f:
@@ -38,7 +40,7 @@ def train(**kwargs_train):
     #     pickle.dump(regr, f)
 
     regr.save_model(
-        "./model_repository/1/model.onnx",
+        "./model_repository/catboost_onnx/1/model.onnx",
         format="onnx",
         export_parameters={
             "onnx_domain": "ai.catboost",
@@ -47,7 +49,7 @@ def train(**kwargs_train):
             "onnx_graph_name": "CatBoostModel_for_Regression",
         },
     )
-    onnx.load_model("./model_repository/1/model.onnx")
+    # onnx.load_model("./model_repository/catboost_onnx/1/model.onnx")
 
 
 if __name__ == "__main__":
